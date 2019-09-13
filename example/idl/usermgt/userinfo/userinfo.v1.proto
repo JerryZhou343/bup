@@ -1,0 +1,20 @@
+syntax = "proto3";
+package idl.usermgt.userinfo.srv.v1;
+
+import "idl/usermgt/user.proto";
+
+option go_package="idl/usermgt/userinfo";
+
+
+service UserinfoService {
+    rpc Hello(HelloReq) returns(HelloRsp){}
+}
+
+message HelloReq{
+    string msg = 1;
+    userbase.UserInfo info = 2;
+}
+
+message HelloRsp{
+    int32  code = 1;
+}

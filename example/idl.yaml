@@ -1,0 +1,16 @@
+idlPath: /Users/apple/workbench/src/github.com/mfslog/prototool/example/idl
+depends:
+  - idl/usermgt/user.proto
+  - idl/usermgt/code.proto
+  - idl/usermgt/passport/passport.proto
+
+includePath:
+
+excludes:
+
+generate:
+    goOptions:
+      extraModifiers:
+        usermgt/user.proto: code.266.com/usermgt/output/usermgt/userbase
+        usermgt/code.proto: code.266.com/usermgt/output/usermgt/userbase
+    outPath: ./output

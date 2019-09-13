@@ -1,0 +1,18 @@
+syntax = "proto3";
+package idl.serialnumber.leaf.api.v1;
+
+
+service LeafService {
+    rpc GetSeq(GetSeqReq) returns(GetSeqRsp){}
+}
+
+
+message GetSeqReq{
+    int32  num = 1;
+}
+
+
+message GetSeqRsp{
+    int32  code = 1;
+    string seq  = 2;
+}

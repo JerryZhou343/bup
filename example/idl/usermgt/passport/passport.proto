@@ -1,0 +1,21 @@
+syntax = "proto3";
+package idl.usermgt.passport.api.v1;
+
+
+import "usermgt/user.proto";
+
+
+
+
+service UserinfoService {
+    rpc Hello(HelloReq) returns(HelloRsp){}
+}
+
+message HelloReq{
+    string msg = 1;
+    userbase.UserInfo info = 2;
+}
+
+message HelloRsp{
+    int32  code = 1;
+}

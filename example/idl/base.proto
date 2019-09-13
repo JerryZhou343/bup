@@ -1,0 +1,9 @@
+syntax = "proto3";
+package idl.base;
+
+
+enum BaseCode{
+    Unknown = 0;
+    OK      = 1;
+    FAILED  = 2;
+}
