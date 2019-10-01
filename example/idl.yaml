@@ -1,8 +1,8 @@
-idlPath: /Users/apple/workbench/src/github.com/mfslog/prototool/example/idl
+basePath: /Users/apple/workbench/src/github.com/mfslog/prototool/example/idl
 depends:
-  - idl/usermgt/user.proto
-  - idl/usermgt/code.proto
-  - idl/usermgt/passport/passport.proto
+  - usermgt/user.proto
+  - usermgt/code.proto
+  - usermgt/passport/passport.proto
 
 includePath:
 

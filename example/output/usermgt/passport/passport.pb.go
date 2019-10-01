@@ -4,7 +4,7 @@
 package idl_usermgt_passport_api_v1
 
 import (
-	userbase "code.266.com/usermgt/idl/usermgt/userbase"
+	userbase "code.266.com/usermgt/output/usermgt/userbase"
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
