@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strings"
 )
 
@@ -25,7 +24,8 @@ func (e *Executor) generate() {
 		err error
 	)
 	for name, fileDesc := range e.protoDesc.Files() {
-		destFilePath := filepath.Join(e.importPath, name)
+		//destFilePath := filepath.Join(e.importPath, name)
+		destFilePath :=  name
 		fs := fileDesc.GetDependencies()
 		var ms []string
 		for _, fd := range fs {
@@ -45,7 +45,7 @@ func (e *Executor) generate() {
 		var args []string
 		//-I 包含路径
 		args = []string{"-I" + e.importPath}
-		for _, itr := range conf.IDLConfig.Includes {
+		for _, itr := range e.includes {
 			args = append(args, "-I"+itr)
 		}
 
