@@ -1,4 +1,4 @@
-package main
+package proto
 
 import (
 	"errors"
@@ -31,7 +31,7 @@ type DescriptorSource interface {
 	FindSymbol(fullyQualifiedName string) (desc.Descriptor, error)
 	// AllExtensionsForType returns all known extension fields that extend the given message type name.
 	AllExtensionsForType(typeName string) ([]*desc.FieldDescriptor, error)
-	Files()map[string]*desc.FileDescriptor
+	Files() map[string]*desc.FileDescriptor
 }
 
 // DescriptorSourceFromProtoSets creates a DescriptorSource that is backed by the named files, whose contents
@@ -150,7 +150,6 @@ type fileSource struct {
 	erInit sync.Once
 }
 
-
 func (fs *fileSource) Files() map[string]*desc.FileDescriptor {
 	return fs.files
 }
@@ -246,7 +245,7 @@ func (ss serverSource) AllExtensionsForType(typeName string) ([]*desc.FieldDescr
 	}
 	return exts, nil
 }
- */
+*/
 
 func reflectionSupport(err error) error {
 	if err == nil {

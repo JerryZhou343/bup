@@ -1,9 +1,9 @@
 syntax = "proto3";
-package idl.usermgt.userinfo.srv.v1;
+package usermgt.userinfo.srv.v1;
 
-import "idl/usermgt/user.proto";
+import "usermgt/user.proto";
 
-option go_package="idl/usermgt/userinfo";
+option go_package="usermgt/userinfo";
 
 
 service UserinfoService {

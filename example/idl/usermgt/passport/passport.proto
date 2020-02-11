@@ -1,5 +1,5 @@
 syntax = "proto3";
-package idl.usermgt.passport.api.v1;
+package usermgt.passport.api.v1;
 
 
 import "usermgt/user.proto";

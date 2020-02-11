@@ -1,4 +1,4 @@
-package main
+package proto
 
 import (
 	"encoding/base64"
@@ -9,7 +9,6 @@ import (
 	"github.com/jhump/protoreflect/dynamic"
 	"strings"
 )
-
 
 type sourceWithFiles interface {
 	GetAllFiles() ([]*desc.FileDescriptor, error)
@@ -73,7 +72,6 @@ func fetchAllExtensions(source DescriptorSource, ext *dynamic.ExtensionRegistry,
 	}
 	return nil
 }
-
 
 type notFoundError string
 
