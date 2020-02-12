@@ -25,11 +25,13 @@ func run() {
 		log.Fatalf("init  read idl.yaml failed [%v]", err)
 	}
 	executor := new(Executor)
+	executor.excludes = make(map[string]struct{})
 	allFilePaths := []string{}
-	executor.importPath = os.ExpandEnv(conf.IDLConfig.ImportPath)
 	executor.extraModifiers = conf.IDLConfig.Generate.GoOptions.ExtraModifiers
-	allFilePaths = append(allFilePaths, executor.importPath)
 	executor.plugins = conf.IDLConfig.Generate.Plugins
+	for _, itr := range conf.IDLConfig.Excludes {
+		executor.excludes[itr] = struct{}{}
+	}
 	for _, itr := range conf.IDLConfig.Includes {
 		executor.includes = append(executor.includes, os.ExpandEnv(itr))
 		allFilePaths = append(allFilePaths, os.ExpandEnv(itr))

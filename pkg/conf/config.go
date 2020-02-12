@@ -20,10 +20,10 @@ type Generate struct {
 }
 
 type Config struct {
-	ImportPath string   `yaml:"import_path"`
-	Includes   []string `yaml:"includes"`
-	Depends    []string `yaml:"depends"`
-	Generate   Generate `yaml:"generate"`
+	Includes []string `yaml:"includes"`
+	Excludes []string `yaml:"excludes"`
+	Depends  []string `yaml:"depends"`
+	Generate Generate `yaml:"generate"`
 }
 
 var IDLConfig = Config{}

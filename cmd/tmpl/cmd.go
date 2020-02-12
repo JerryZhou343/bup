@@ -34,23 +34,28 @@ func run() {
 }
 
 var (
-	tmpl = `#idl 基础导入路径,路径可以设置环境变量: $GOPATH 或者 ${GOPATH}
-import_path: /Users/apple/workbench/src/github.com/mfslog/prototool/example/idl
+	tmpl = `#导入路径可以设置环境变量: $GOPATH 或者 ${GOPATH}
+#导入目录
+includes:
+  - $GOPATH/src/github.com/bilibili/kratos/third_party
+  - $IDLBASE/idl
+
 #当前项目依赖的proto文件
 depends:
-  - usermgt/passport/passport.proto
-#依赖第三方目录
-includes:
+  - xxxx/xxxx/xxxx.proto
+
+
+excludes:
+  - github.com/gogo/protobuf/gogoproto/gogo.proto
+  - google
 
 #编译设置
 generate:
     go_options:
       extra_modifiers:
-        usermgt/user.proto: code.hyfco.com/usermgt/output/usermgt/userbase
-        usermgt/code.proto: code.hyfco.com/usermgt/output/usermgt/userbase
     plugins:
       - name: gofast
         flags: plugins=grpc
-        output: ./output
+        output: ./api
 `
 )

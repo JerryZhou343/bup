@@ -1,10 +1,15 @@
-#idl 基础导入路径,路径可以设置环境变量: $GOPATH 或者 ${GOPATH}
-import_path: /Users/apple/workbench/src/github.com/mfslog/prototool/example/idl
+#导入目录 支持环境变量, protoc -I 参数
+includes:
+  - $IDLPATH/example/idl
+
 #当前项目依赖的proto文件
 depends:
   - usermgt/passport/passport.proto
-#依赖第三方目录
-includes:
+
+#编译时需要排除的文件或者目录
+excludes:
+
+
 
 #编译设置
 generate:
