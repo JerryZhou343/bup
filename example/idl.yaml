@@ -1,14 +1,12 @@
-#导入目录 支持环境变量, protoc -I 参数
-includes:
-  - $IDLPATH/example/idl
+import_path: $IDL_PATH
 
 #当前项目依赖的proto文件
-depends:
+protos:
   - usermgt/passport/passport.proto
-
-#编译时需要排除的文件或者目录
-excludes:
-
+  - usermgt/code.proto
+  - usermgt/user.proto
+#导入目录 支持环境变量, protoc -I 参数
+includes:
 
 
 #编译设置

@@ -1,15 +1,10 @@
 package main
 
 import (
-	"github.com/mfslog/prototool/cmd/generate"
-	"github.com/mfslog/prototool/cmd/tmpl"
-	"github.com/spf13/cobra"
+	"github.com/mfslog/prototool/cmd"
 )
 
 func main() {
 
-	rootCmd := &cobra.Command{}
-	rootCmd.AddCommand(generate.GenCmd)
-	rootCmd.AddCommand(tmpl.InitCmd)
-	rootCmd.Execute()
+	cmd.Run()
 }

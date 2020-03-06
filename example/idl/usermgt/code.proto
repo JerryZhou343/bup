@@ -1,10 +1,10 @@
 syntax = "proto3";
+
 package userbase;
 
-option go_package="usermgt/userbase";
+option go_package = "usermgt/userbase";
 
 enum UserCode {
-    OK = 0;
-    failed = 1;
+  OK = 0;
+  Failed = 1;
 }
-
