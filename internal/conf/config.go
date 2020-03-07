@@ -23,35 +23,34 @@ type Generate struct {
 }
 
 type Config struct {
-	ImportPath string `yaml:"import_path"`
-	Protos   []string `yaml:"protos"`
-	Includes []string `yaml:"includes"`
-	Generate Generate `yaml:"generate"`
+	ImportPath string   `yaml:"import_path"`
+	Protos     []string `yaml:"protos"`
+	Includes   []string `yaml:"includes"`
+	Generate   Generate `yaml:"generate"`
 }
 
-
-func NewConfig()( ret *Config,err error ){
+func NewConfig() (ret *Config, err error) {
 	ret = &Config{}
 	f, err := ioutil.ReadFile("idl.yaml")
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	err = yaml.Unmarshal(f, &ret)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	//支持环境变量
 	absPath := []string{}
-	for _, itr := range ret.Includes{
-		tmp  := os.ExpandEnv(itr)
-		log.Println("include path:",tmp)
+	for _, itr := range ret.Includes {
+		tmp := os.ExpandEnv(itr)
+		log.Println("include path:", tmp)
 		absPath = append(absPath, tmp)
 	}
 
 	ret.Includes = absPath
-	ret.ImportPath =os.ExpandEnv(ret.ImportPath)
+	ret.ImportPath = os.ExpandEnv(ret.ImportPath)
 
 	return
 }

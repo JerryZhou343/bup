@@ -5,6 +5,6 @@ import (
 	"os"
 )
 
-func Access (name string) (io.ReadCloser, error) {
-		return os.Open(name)
+func Access(name string) (io.ReadCloser, error) {
+	return os.Open(name)
 }

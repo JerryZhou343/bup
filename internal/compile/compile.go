@@ -41,7 +41,7 @@ func (c *Compiler) Compile(desc proto.DescriptorSource) (err error) {
 		log.Println("out path ", outputPath)
 		//参数
 		arg = arg + itr.Flags
-		var optArg  string
+		var optArg string
 		for _, cmd := range metaCmds {
 			optArg = ""
 			if len(cmd.extraModifiers) > 0 {
@@ -71,7 +71,7 @@ func (e *Compiler) generateCmd(desc proto.DescriptorSource) []*metaCmd {
 	)
 	for name, fileDesc := range desc.Files() {
 		M = ""
-		log.Println("compile file ",name)
+		log.Println("compile file ", name)
 		//生成命令
 		fs := fileDesc.GetDependencies()
 		var ms []string

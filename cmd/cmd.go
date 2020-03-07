@@ -6,34 +6,33 @@ import (
 	"log"
 )
 
-func Run(){
-	app,err := app.InitApp()
-	if err != nil{
-		log.Fatal("init App failed",err)
+func Run() {
+	app, err := app.InitApp()
+	if err != nil {
+		log.Fatal("init App failed", err)
 	}
 	var (
 		RootCmd = &cobra.Command{
-			Use:"prototool",
+			Use:        "prototool",
 			ArgAliases: []string{"generate,fmt, config"},
-			Args:cobra.OnlyValidArgs,
+			Args:       cobra.OnlyValidArgs,
 		}
-		
+
 		generateCmd = &cobra.Command{
-			Use:"generate",
-			Args:cobra.NoArgs,
+			Use:  "generate",
+			Args: cobra.NoArgs,
 			Run: func(cmd *cobra.Command, args []string) {
 				app.Gen()
 			},
 		}
 
 		fmtCmd = &cobra.Command{
-			Use:"fmt",
-			Args:cobra.NoArgs,
+			Use:  "fmt",
+			Args: cobra.NoArgs,
 			Run: func(cmd *cobra.Command, args []string) {
 				app.Format()
 			},
 		}
-
 	)
 
 	RootCmd.AddCommand(generateCmd)

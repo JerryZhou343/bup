@@ -24,12 +24,11 @@ func NewApp(config *conf.Config, compiler *compile.Compiler, formatter *format.F
 	}, nil
 }
 
-
-func (a *App)Format(){
+func (a *App) Format() {
 	for _, itr := range a.config.Protos {
 		absPath := filepath.Join(a.config.ImportPath, itr)
 		_, err := os.Open(absPath)
-		if err != nil{
+		if err != nil {
 			log.Println("can't access file", absPath)
 			continue
 		}
@@ -38,18 +37,18 @@ func (a *App)Format(){
 
 }
 
-func (a *App)Gen(){
+func (a *App) Gen() {
 	includePath := []string{}
-	includePath = append(includePath,a.config.ImportPath)
-	includePath = append(includePath,a.config.Includes...)
+	includePath = append(includePath, a.config.ImportPath)
+	includePath = append(includePath, a.config.Includes...)
 	descSource, err := proto.DescriptorSourceFromProtoFiles(includePath, a.config.Protos...)
 	if err != nil {
-		log.Fatal("Failed to process proto source files.",err)
+		log.Fatal("Failed to process proto source files.", err)
 	}
 
 	err = a.compiler.Compile(descSource)
-	if err != nil{
-		log.Fatal("compile error ",err)
+	if err != nil {
+		log.Fatal("compile error ", err)
 	}
 
 	return
