@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/mfslog/prototool/internal/conf"
 	"github.com/mfslog/prototool/internal/proto"
+	"github.com/mfslog/prototool/internal/wkt"
 	"log"
 	"os"
 	"os/exec"
@@ -71,20 +72,28 @@ func (e *Compiler) generateCmd(desc proto.DescriptorSource) []*metaCmd {
 	)
 	for name, fileDesc := range desc.Files() {
 		M = ""
+		if _, ok := wkt.Filenames[name]; ok {
+			continue
+		}
 		log.Println("compile file ", name)
 		//生成命令
 		fs := fileDesc.GetDependencies()
 		var ms []string
 		for _, fd := range fs {
 			dependName := fd.GetName()
-			//log.Println("depend", dependName)
 			opt := fd.GetFileOptions().GoPackage
 			if opt == nil {
 				os.Exit(1)
 			}
+
 			if m, ok := e.config.Generate.GoOptions.ExtraModifiers[dependName]; ok {
 				ms = append(ms, "M"+dependName+"="+m)
 			}
+
+			if m, ok := wkt.FilenameToGogoModifierMap[dependName]; ok {
+				ms = append(ms, "M"+dependName+"="+m)
+			}
+
 		}
 		if len(ms) > 0 {
 			M = strings.Join(ms, ",")

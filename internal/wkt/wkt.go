@@ -28,18 +28,21 @@ package wkt
 var (
 	// Filenames contains the Google Well-Known Types filenames.
 	Filenames = map[string]struct{}{
-		"google/protobuf/any.proto":             {},
-		"google/protobuf/api.proto":             {},
-		"google/protobuf/compiler/plugin.proto": {},
-		"google/protobuf/descriptor.proto":      {},
-		"google/protobuf/duration.proto":        {},
-		"google/protobuf/empty.proto":           {},
-		"google/protobuf/field_mask.proto":      {},
-		"google/protobuf/source_context.proto":  {},
-		"google/protobuf/struct.proto":          {},
-		"google/protobuf/timestamp.proto":       {},
-		"google/protobuf/type.proto":            {},
-		"google/protobuf/wrappers.proto":        {},
+		"google/protobuf/any.proto":                     {},
+		"google/protobuf/api.proto":                     {},
+		"google/protobuf/compiler/plugin.proto":         {},
+		"google/protobuf/descriptor.proto":              {},
+		"google/protobuf/duration.proto":                {},
+		"google/protobuf/empty.proto":                   {},
+		"google/protobuf/field_mask.proto":              {},
+		"google/protobuf/source_context.proto":          {},
+		"google/protobuf/struct.proto":                  {},
+		"google/protobuf/timestamp.proto":               {},
+		"google/protobuf/type.proto":                    {},
+		"google/protobuf/wrappers.proto":                {},
+		"google/api/annotations.proto":                  {},
+		"github.com/gogo/protobuf/gogoproto/gogo.proto": {},
+		"google/api/http.proto":                         {},
 	}
 
 	// FilenameToGoModifierMap is a map from filename to package for github.com/golang/protobuf.
@@ -56,21 +59,28 @@ var (
 		"google/protobuf/timestamp.proto":       "github.com/golang/protobuf/ptypes/timestamp",
 		"google/protobuf/type.proto":            "google.golang.org/genproto/protobuf/ptype",
 		"google/protobuf/wrappers.proto":        "github.com/golang/protobuf/ptypes/wrappers",
+		"google/api/annotations.proto":          "google.golang.org/genproto/googleapis/api/annotations",
+
+		"google/api/http.prot":                          "google.golang.org/genproto/googleapis/api/annotations",
+		"github.com/gogo/protobuf/gogoproto/gogo.proto": "github.com/gogo/protobuf/gogoproto",
 	}
 
 	// FilenameToGogoModifierMap is a map from filename to package for github.com/gogo/protobuf.
 	FilenameToGogoModifierMap = map[string]string{
-		"google/protobuf/any.proto":             "github.com/gogo/protobuf/types",
-		"google/protobuf/api.proto":             "google.golang.org/genproto/protobuf/api",
-		"google/protobuf/compiler/plugin.proto": "github.com/gogo/protobuf/protoc-gen-gogo/plugin",
-		"google/protobuf/descriptor.proto":      "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
-		"google/protobuf/duration.proto":        "github.com/gogo/protobuf/types",
-		"google/protobuf/empty.proto":           "github.com/gogo/protobuf/types",
-		"google/protobuf/field_mask.proto":      "github.com/gogo/protobuf/types",
-		"google/protobuf/source_context.proto":  "google.golang.org/genproto/protobuf/source_context",
-		"google/protobuf/struct.proto":          "github.com/gogo/protobuf/types",
-		"google/protobuf/timestamp.proto":       "github.com/gogo/protobuf/types",
-		"google/protobuf/type.proto":            "google.golang.org/genproto/protobuf/ptype",
-		"google/protobuf/wrappers.proto":        "github.com/gogo/protobuf/types",
+		"google/protobuf/any.proto":                     "github.com/gogo/protobuf/types",
+		"google/protobuf/api.proto":                     "google.golang.org/genproto/protobuf/api",
+		"google/protobuf/compiler/plugin.proto":         "github.com/gogo/protobuf/protoc-gen-gogo/plugin",
+		"google/protobuf/descriptor.proto":              "github.com/gogo/protobuf/protoc-gen-gogo/descriptor",
+		"google/protobuf/duration.proto":                "github.com/gogo/protobuf/types",
+		"google/protobuf/empty.proto":                   "github.com/gogo/protobuf/types",
+		"google/protobuf/field_mask.proto":              "github.com/gogo/protobuf/types",
+		"google/protobuf/source_context.proto":          "google.golang.org/genproto/protobuf/source_context",
+		"google/protobuf/struct.proto":                  "github.com/gogo/protobuf/types",
+		"google/protobuf/timestamp.proto":               "github.com/gogo/protobuf/types",
+		"google/protobuf/type.proto":                    "google.golang.org/genproto/protobuf/ptype",
+		"google/protobuf/wrappers.proto":                "github.com/gogo/protobuf/types",
+		"google/api/annotations.proto":                  "google.golang.org/genproto/googleapis/api/annotations",
+		"github.com/gogo/protobuf/gogoproto/gogo.proto": "github.com/gogo/protobuf/gogoproto",
+		"google/api/http.prot":                          "google.golang.org/genproto/googleapis/api/annotations",
 	}
 )

@@ -16,6 +16,7 @@ type Plugin struct {
 	Name   string `yaml:"name"`
 	Output string `yaml:"output"`
 	Flags  string `yaml:"flags"`
+	Type   string `yaml:"type"`
 }
 
 type GoOptions struct {
