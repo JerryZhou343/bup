@@ -95,7 +95,7 @@ func NewConfig() (ret *Config, err error) {
 		IncludeIDs:          strs.SortUniqModify(ret.Lint.Rules.Add, strings.ToUpper),
 		ExcludeIDs:          strs.SortUniqModify(ret.Lint.Rules.Remove, strings.ToUpper),
 		Group:               strings.ToLower(ret.Lint.Group),
-		NoDefault:           ret.Lint.Rules.NoDefault,
+		NoDefault:           true,
 		IgnoreIDToFilePaths: ignoreIDToFilePaths,
 		//FileHeader:          fileHeader,
 		JavaPackagePrefix: ret.Lint.JavaPackagePrefix,

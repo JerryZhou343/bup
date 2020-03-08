@@ -45,13 +45,13 @@ lint:
   rules:
 
 # The specific linters to add.
-  add:
-    - ENUM_NAMES_CAMEL_CASE
-    - ENUM_NAMES_CAPITALIZED
+  	add:
+     - ENUM_NAMES_CAMEL_CASE
+     - ENUM_NAMES_CAPITALIZED
 
   # The specific linters to remove.
-  remove:
-    #- ENUM_NAMES_CAMEL_CASE
+    remove:
+     #- ENUM_NAMES_CAMEL_CASE
 
 ####################编译配置####################
 generate:
