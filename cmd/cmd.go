@@ -13,22 +13,22 @@ func Run() {
 	}
 	var (
 		RootCmd = &cobra.Command{
-			Use:        "prototool",
-			ArgAliases: []string{"generate,fmt, config"},
-			Args:       cobra.OnlyValidArgs,
+			Use: "prototool",
 		}
 
 		generateCmd = &cobra.Command{
-			Use:  "generate",
-			Args: cobra.NoArgs,
+			Use:   "generate",
+			Short: "编译proto",
+			Args:  cobra.NoArgs,
 			Run: func(cmd *cobra.Command, args []string) {
 				app.Gen()
 			},
 		}
 
 		fmtCmd = &cobra.Command{
-			Use:  "fmt",
-			Args: cobra.NoArgs,
+			Use:   "fmt",
+			Short: "格式化proto",
+			Args:  cobra.NoArgs,
 			Run: func(cmd *cobra.Command, args []string) {
 				app.Format()
 			},
@@ -41,10 +41,19 @@ func Run() {
 				app.Lint()
 			},
 		}
+
+		configCmd = &cobra.Command{
+			Use:  "config",
+			Args: cobra.NoArgs,
+			Run: func(cmd *cobra.Command, args []string) {
+				app.Config()
+			},
+		}
 	)
 
 	RootCmd.AddCommand(generateCmd)
 	RootCmd.AddCommand(fmtCmd)
 	RootCmd.AddCommand(lintCmd)
+	RootCmd.AddCommand(configCmd)
 	RootCmd.Execute()
 }

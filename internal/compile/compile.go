@@ -77,7 +77,7 @@ func (e *Compiler) generateCmd(desc proto.DescriptorSource) []*metaCmd {
 		var ms []string
 		for _, fd := range fs {
 			dependName := fd.GetName()
-			log.Println("depend", dependName)
+			//log.Println("depend", dependName)
 			opt := fd.GetFileOptions().GoPackage
 			if opt == nil {
 				os.Exit(1)

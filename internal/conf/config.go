@@ -3,6 +3,7 @@ package conf
 import (
 	"github.com/mfslog/prototool/internal/lint"
 	"github.com/mfslog/prototool/internal/strs"
+	"github.com/pkg/errors"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
@@ -56,27 +57,50 @@ type Config struct {
 
 func NewConfig() (ret *Config, err error) {
 	ret = &Config{}
-	f, err := ioutil.ReadFile("idl.yaml")
+	return
+}
+
+func (c *Config) Output() (err error) {
+	var (
+		file *os.File
+	)
+	file, err = os.Create("idl.yaml")
 	if err != nil {
-		return nil, err
+		err = errors.WithMessagef(err, "create idl.yaml failed")
+		return
 	}
 
-	err = yaml.Unmarshal(f, &ret)
+	_, err = file.WriteString(tmpl)
 	if err != nil {
-		return nil, err
+		err = errors.WithMessagef(err, "write idl.yaml failed")
+	}
+	return
+}
+
+func (ret *Config) Load() (err error) {
+	f, err := ioutil.ReadFile("idl.yaml")
+	if err != nil {
+		return err
+	}
+
+	err = yaml.Unmarshal(f, ret)
+	if err != nil {
+		return err
 	}
 
 	//支持环境变量
 	absPath := []string{}
 	for _, itr := range ret.Includes {
 		tmp := os.ExpandEnv(itr)
-		log.Println("include path:", tmp)
 		absPath = append(absPath, tmp)
 	}
 
 	ret.Includes = absPath
 	ret.ImportPath = os.ExpandEnv(ret.ImportPath)
-
+	ret.Includes = append(ret.Includes, ret.ImportPath)
+	for _, itr := range ret.Includes{
+		log.Println("include path:", itr)
+	}
 	ignoreIDToFilePaths := make(map[string][]string)
 	for _, ignore := range ret.Lint.Ignores {
 		id := strings.ToUpper(ignore.ID)
@@ -101,5 +125,6 @@ func NewConfig() (ret *Config, err error) {
 		JavaPackagePrefix: ret.Lint.JavaPackagePrefix,
 		AllowSuppression:  false,
 	}
-	return
+
+	return nil
 }

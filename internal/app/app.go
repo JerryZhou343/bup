@@ -26,6 +26,13 @@ func NewApp(config *conf.Config, compiler *compile.Compiler, formatter *format.F
 }
 
 func (a *App) Format() {
+	var (
+		err error
+	)
+	err = a.config.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
 	for _, itr := range a.config.Protos {
 		absPath := filepath.Join(a.config.ImportPath, itr)
 		_, err := os.Open(absPath)
@@ -39,10 +46,15 @@ func (a *App) Format() {
 }
 
 func (a *App) Gen() {
-	includePath := []string{}
-	includePath = append(includePath, a.config.ImportPath)
-	includePath = append(includePath, a.config.Includes...)
-	descSource, err := proto.DescriptorSourceFromProtoFiles(includePath, a.config.Protos...)
+	var (
+		err error
+	)
+	err = a.config.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	descSource, err := proto.DescriptorSourceFromProtoFiles(a.config.Includes, a.config.Protos...)
 	if err != nil {
 		log.Fatalf("Failed to process proto source files. %v", err)
 	}
@@ -56,6 +68,13 @@ func (a *App) Gen() {
 }
 
 func (a *App) Lint() {
+	var (
+		err error
+	)
+	err = a.config.Load()
+	if err != nil {
+		log.Fatal(err)
+	}
 	allAbsFile := []string{}
 	for _, itr := range a.config.Protos {
 		absPath := filepath.Join(a.config.ImportPath, itr)
@@ -74,4 +93,10 @@ func (a *App) Lint() {
 	for _, itr := range text {
 		log.Println(itr)
 	}
+}
+
+func (a *App) Config() {
+	err := a.config.Output()
+	log.Fatal(err)
+	return
 }
