@@ -16,5 +16,5 @@ message HelloReq{
 }
 
 message HelloRsp{
-    int32  code = 1;
+    int32                   code = 1;
 }

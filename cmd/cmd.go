@@ -33,9 +33,18 @@ func Run() {
 				app.Format()
 			},
 		}
+
+		lintCmd = &cobra.Command{
+			Use:  "lint",
+			Args: cobra.NoArgs,
+			Run: func(cmd *cobra.Command, args []string) {
+				app.Lint()
+			},
+		}
 	)
 
 	RootCmd.AddCommand(generateCmd)
 	RootCmd.AddCommand(fmtCmd)
+	RootCmd.AddCommand(lintCmd)
 	RootCmd.Execute()
 }

@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/emicklei/proto v1.9.0
+	github.com/gobuffalo/flect v0.1.6
 	github.com/golang/protobuf v1.3.2
 	github.com/google/wire v0.4.0
 	github.com/jhump/protoreflect v1.5.0

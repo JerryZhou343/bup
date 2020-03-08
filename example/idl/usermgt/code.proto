@@ -4,7 +4,7 @@ package userbase;
 
 option go_package = "usermgt/userbase";
 
-enum UserCode {
+enum User_code {
   OK = 0;
-  Failed = 1;
+  FAILED = 1;
 }

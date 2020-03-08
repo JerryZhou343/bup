@@ -4,6 +4,7 @@ import (
 	"github.com/mfslog/prototool/internal/compile"
 	"github.com/mfslog/prototool/internal/conf"
 	"github.com/mfslog/prototool/internal/format"
+	"github.com/mfslog/prototool/internal/lint"
 	"github.com/mfslog/prototool/internal/proto"
 	"log"
 	"os"
@@ -43,13 +44,34 @@ func (a *App) Gen() {
 	includePath = append(includePath, a.config.Includes...)
 	descSource, err := proto.DescriptorSourceFromProtoFiles(includePath, a.config.Protos...)
 	if err != nil {
-		log.Fatal("Failed to process proto source files.", err)
+		log.Fatalf("Failed to process proto source files. %v", err)
 	}
 
 	err = a.compiler.Compile(descSource)
 	if err != nil {
-		log.Fatal("compile error ", err)
+		log.Fatalf("compile error %v", err)
 	}
 
 	return
+}
+
+func (a *App) Lint() {
+	allAbsFile := []string{}
+	for _, itr := range a.config.Protos {
+		absPath := filepath.Join(a.config.ImportPath, itr)
+		_, err := os.Open(absPath)
+		if err != nil {
+			log.Println("can't access file", absPath)
+			continue
+		}
+		allAbsFile = append(allAbsFile, absPath)
+	}
+	text, err := lint.NewRunner().Run(allAbsFile, a.config.LintCfg)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	for _, itr := range text {
+		log.Println(itr)
+	}
 }
