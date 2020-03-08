@@ -98,7 +98,7 @@ func (ret *Config) Load() (err error) {
 	ret.Includes = absPath
 	ret.ImportPath = os.ExpandEnv(ret.ImportPath)
 	ret.Includes = append(ret.Includes, ret.ImportPath)
-	for _, itr := range ret.Includes{
+	for _, itr := range ret.Includes {
 		log.Println("include path:", itr)
 	}
 	ignoreIDToFilePaths := make(map[string][]string)
