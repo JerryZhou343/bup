@@ -90,7 +90,7 @@ func (e *Compiler) generateCmd(desc proto.DescriptorSource) []*metaCmd {
 				ms = append(ms, "M"+dependName+"="+m)
 			}
 
-			if m, ok := wkt.FilenameToGogoModifierMap[dependName]; ok {
+			if m, ok := wkt.FilenameToGoModifierMap[dependName]; ok {
 				ms = append(ms, "M"+dependName+"="+m)
 			}
 
