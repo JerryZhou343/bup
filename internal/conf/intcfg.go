@@ -57,7 +57,6 @@ generate:
     plugins:
       - name: gofast
         flags: plugins=grpc
-        output: ./api
-
+        output: ./genproto
 `
 )
