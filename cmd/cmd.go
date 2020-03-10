@@ -38,7 +38,10 @@ func Run() {
 			Use:  "lint",
 			Args: cobra.NoArgs,
 			Run: func(cmd *cobra.Command, args []string) {
-				app.Lint()
+				err = app.Lint()
+				if err != nil {
+					log.Fatal(err)
+				}
 			},
 		}
 
