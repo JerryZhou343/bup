@@ -5,5 +5,5 @@ package userbase;
 option go_package = "usermgt/userbase";
 
 message UserInfo {
-  string nickName = 1;
+    string nickName = 1;
 }
