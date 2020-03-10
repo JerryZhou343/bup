@@ -15,8 +15,10 @@ includes:
 
 ####################lint配置####################
 lint:
+# 检查规则
   rules:
-    enbale:
+    enable:
+
     disable:
       - core::0191::java-package
       - core::0191::java-outer-classname
@@ -30,4 +32,3 @@ generate:
       - name: gofast
         flags: plugins=grpc
         output: ./genproto
-

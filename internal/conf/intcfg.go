@@ -20,9 +20,9 @@ includes:
 lint:
 # 检查规则
   rules:
-    add:
+    enable:
 
-    remove:
+    disable:
 
 
 ####################编译配置####################
