@@ -40,6 +40,7 @@ func (a *App) Format() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	var absFiles []string
 	for _, itr := range a.config.Protos {
 		absPath := filepath.Join(a.config.ImportPath, itr)
 		_, err := os.Open(absPath)
@@ -47,8 +48,9 @@ func (a *App) Format() {
 			log.Println("can't access file", absPath)
 			continue
 		}
-		a.formatter.FormatSignFile(absPath)
+		absFiles = append(absFiles, absPath)
 	}
+	a.formatter.Format(absFiles)
 
 }
 
