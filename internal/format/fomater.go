@@ -7,13 +7,10 @@ import (
 
 var (
 	protoStyle = `{
-BasedOnStyle: google,
+Language: Proto,
+BasedOnStyle: Google,
 AlignConsecutiveAssignments: true,
 AlignConsecutiveDeclarations: true,
-AllowShortFunctionsOnASingleLine: None,
-ColumnLimit: 0,
-IndentWidth: 4,
-Language: Proto,
 }`
 )
 
