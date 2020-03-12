@@ -34,6 +34,10 @@ func (c *Compiler) Compile(desc proto.DescriptorSource) (err error) {
 		//插件
 		arg := fmt.Sprintf("--%s_out=", itr.Name)
 		outputPath := os.ExpandEnv(itr.Output)
+		err = os.RemoveAll(outputPath)
+		if err != nil {
+			log.Println("remove path failed ", outputPath)
+		}
 		err = os.MkdirAll(outputPath, os.ModePerm)
 		if err != nil {
 			log.Fatalf("MkdirAll failed [%v]", err)
@@ -54,7 +58,7 @@ func (c *Compiler) Compile(desc proto.DescriptorSource) (err error) {
 			tmp := append(cmd.args, optArg)
 			tmp = append(tmp, cmd.file)
 			tmpCmd := exec.Command("protoc", tmp...)
-			log.Println(tmp)
+			log.Println(tmpCmd.String())
 			out, err := tmpCmd.CombinedOutput()
 			if err != nil {
 				log.Println("compile Error:", err)

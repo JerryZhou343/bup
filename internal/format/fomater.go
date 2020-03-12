@@ -25,6 +25,7 @@ func (f *Formatter) Format(absFile []string) {
 	args := []string{"-style", protoStyle, "-i"}
 	args = append(args, absFile...)
 	cmd := exec.Command("clang-format", args...)
+	log.Println(cmd.String())
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Println(string(out))
