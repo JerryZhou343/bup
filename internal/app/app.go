@@ -43,11 +43,7 @@ func (a *App) Format() {
 	var absFiles []string
 	for _, itr := range a.config.Protos {
 		absPath := filepath.Join(a.config.ImportPath, itr)
-		_, err := os.Open(absPath)
-		if err != nil {
-			log.Println("can't access file", absPath)
-			continue
-		}
+		absPath = filepath.ToSlash(absPath)
 		absFiles = append(absFiles, absPath)
 	}
 	a.formatter.Format(absFiles)
