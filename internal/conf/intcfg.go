@@ -4,7 +4,7 @@ var (
 	tmpl = `###################基础配置#####################
 #导入路径可以设置环境变量: $GOPATH 或者 ${GOPATH}
 #项目基础导入目录
-import_path: $IDL_PATH
+import_path: $PROTOCOL_PATH
 
 #当前项目依赖的proto文件
 protos:
