@@ -44,6 +44,7 @@ var (
 		"google/api/field_behavior.proto":               {},
 		"github.com/gogo/protobuf/gogoproto/gogo.proto": {},
 		"google/api/http.proto":                         {},
+		"google/rpc/status.proto":                       {},
 	}
 
 	// FilenameToGoModifierMap is a map from filename to package for github.com/golang/protobuf.
@@ -64,6 +65,7 @@ var (
 		"google/api/http.proto":                         "google.golang.org/genproto/googleapis/api/annotations",
 		"google/api/field_behavior.proto":               "google.golang.org/genproto/googleapis/api/annotations",
 		"github.com/gogo/protobuf/gogoproto/gogo.proto": "github.com/gogo/protobuf/gogoproto",
+		"google/rpc/status.proto":                       "google.golang.org/grpc/status",
 	}
 
 	// FilenameToGogoModifierMap is a map from filename to package for github.com/gogo/protobuf.
@@ -84,5 +86,6 @@ var (
 		"github.com/gogo/protobuf/gogoproto/gogo.proto": "github.com/gogo/protobuf/gogoproto",
 		"google/api/http.proto":                         "google.golang.org/genproto/googleapis/api/annotations",
 		"google/api/field_behavior.proto":               "google.golang.org/genproto/googleapis/api/annotations",
+		"google/rpc/status.proto":                       "google.golang.org/grpc/status",
 	}
 )
