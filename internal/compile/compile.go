@@ -29,15 +29,15 @@ func NewCompiler(cfg *conf.Config) *Compiler {
 
 func (c *Compiler) Compile(desc proto.DescriptorSource) (err error) {
 
-	metaCmds := c.generateCmd(desc)
 	for _, itr := range c.config.Generate.Plugins {
+		metaCmds := c.generateCmd(desc, itr.Type)
 		//插件
 		arg := fmt.Sprintf("--%s_out=", itr.Name)
 		outputPath := os.ExpandEnv(itr.Output)
-		err = os.RemoveAll(outputPath)
-		if err != nil {
-			log.Println("remove path failed ", outputPath)
-		}
+		//err = os.RemoveAll(outputPath)
+		//if err != nil {
+		//	log.Println("remove path failed ", outputPath)
+		//}
 		err = os.MkdirAll(outputPath, os.ModePerm)
 		if err != nil {
 			log.Fatalf("MkdirAll failed [%v]", err)
@@ -69,7 +69,7 @@ func (c *Compiler) Compile(desc proto.DescriptorSource) (err error) {
 	return nil
 }
 
-func (e *Compiler) generateCmd(desc proto.DescriptorSource) []*metaCmd {
+func (e *Compiler) generateCmd(desc proto.DescriptorSource, typ string) []*metaCmd {
 	var (
 		M   string
 		ret []*metaCmd
@@ -93,9 +93,14 @@ func (e *Compiler) generateCmd(desc proto.DescriptorSource) []*metaCmd {
 			if m, ok := e.config.Generate.GoOptions.ExtraModifiers[dependName]; ok {
 				ms = append(ms, "M"+dependName+"="+m)
 			}
-
-			if m, ok := wkt.FilenameToGoModifierMap[dependName]; ok {
-				ms = append(ms, "M"+dependName+"="+m)
+			if typ == "go" {
+				if m, ok := wkt.FilenameToGoModifierMap[dependName]; ok {
+					ms = append(ms, "M"+dependName+"="+m)
+				}
+			} else {
+				if m, ok := wkt.FilenameToGogoModifierMap[dependName]; ok {
+					ms = append(ms, "M"+dependName+"="+m)
+				}
 			}
 
 		}
