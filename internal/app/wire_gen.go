@@ -14,15 +14,9 @@ import (
 // Injectors from wire.go:
 
 func InitApp() (*App, error) {
-	config, err := conf.NewConfig()
-	if err != nil {
-		return nil, err
-	}
+	config := conf.NewConfig()
 	compiler := compile.NewCompiler(config)
 	formatter := format.NewFormatter()
-	app, err := NewApp(config, compiler, formatter)
-	if err != nil {
-		return nil, err
-	}
+	app := NewApp(config, compiler, formatter)
 	return app, nil
 }

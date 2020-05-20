@@ -6,14 +6,14 @@ import "usermgt/user.proto";
 
 //用户信息服务
 service UserinfoService {
-    rpc Hello(HelloReq) returns (HelloRsp);
+  rpc Hello(HelloReq) returns (HelloRsp);
 }
 
 message HelloReq {
-    string            msg  = 1;
-    userbase.UserInfo info = 2;
+  string            msg  = 1;
+  userbase.UserInfo info = 2;
 }
 
 message HelloRsp {
-    int32 code = 1;
+  int32 code = 1;
 }

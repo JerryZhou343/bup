@@ -8,6 +8,7 @@ import (
 	"github.com/jhump/protoreflect/desc/protoparse"
 	"github.com/mfslog/prototool/internal/compile"
 	"github.com/mfslog/prototool/internal/conf"
+	"github.com/mfslog/prototool/internal/flags"
 	"github.com/mfslog/prototool/internal/format"
 	"github.com/mfslog/prototool/internal/proto"
 	"github.com/pkg/errors"
@@ -24,30 +25,50 @@ type App struct {
 	formatter *format.Formatter
 }
 
-func NewApp(config *conf.Config, compiler *compile.Compiler, formatter *format.Formatter) (*App, error) {
+func NewApp(config *conf.Config, compiler *compile.Compiler, formatter *format.Formatter) *App {
 	return &App{
 		config:    config,
 		compiler:  compiler,
 		formatter: formatter,
-	}, nil
+	}
 }
 
 func (a *App) Format() {
 	var (
 		err error
+
+		absFiles []string
 	)
 	err = a.config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
-	var absFiles []string
-	for _, itr := range a.config.Protos {
-		absPath := filepath.Join(a.config.ImportPath, itr)
-		absPath = filepath.ToSlash(absPath)
-		absFiles = append(absFiles, absPath)
-	}
-	a.formatter.Format(absFiles)
 
+	//文件参数
+	sourceFiles := map[string]struct{}{}
+	for _, itr := range flags.SrcFiles {
+		sourceFiles[itr] = struct{}{}
+	}
+	for _, itr := range a.config.Protos {
+		if _, ok := sourceFiles[itr]; ok {
+			absPath := filepath.Join(a.config.ImportPath, itr)
+			absPath = filepath.ToSlash(absPath)
+			absFiles = append(absFiles, absPath)
+		}
+	}
+	//目录参数
+	for _, itr := range a.config.Protos {
+		for _, dir := range flags.SrcDirectories {
+			if strings.Contains(itr, dir) {
+				absPath := filepath.Join(a.config.ImportPath, itr)
+				absPath = filepath.ToSlash(absPath)
+				absFiles = append(absFiles, absPath)
+			}
+		}
+	}
+	if len(absFiles) > 0 {
+		a.formatter.Format(absFiles)
+	}
 }
 
 func (a *App) Gen() {
@@ -73,10 +94,45 @@ func (a *App) Gen() {
 }
 
 func (a *App) Lint() (err error) {
+	var (
+		absFiles []string
+	)
 	err = a.config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	//文件参数
+	sourceFiles := map[string]struct{}{}
+	for _, itr := range flags.SrcFiles {
+		sourceFiles[itr] = struct{}{}
+	}
+	for _, itr := range a.config.Protos {
+		if _, ok := sourceFiles[itr]; ok {
+			absPath := filepath.Join(a.config.ImportPath, itr)
+			absPath = filepath.ToSlash(absPath)
+			absFiles = append(absFiles, absPath)
+		}
+	}
+	//目录参数
+	for _, itr := range a.config.Protos {
+		for _, dir := range flags.SrcDirectories {
+			if strings.Contains(itr, dir) {
+				absPath := filepath.Join(a.config.ImportPath, itr)
+				absPath = filepath.ToSlash(absPath)
+				absFiles = append(absFiles, absPath)
+			}
+		}
+	}
+
+	if len(absFiles) == 0 {
+		return
+	}
+
+	for _, itr := range absFiles {
+		log.Println("lint file:", itr)
+	}
+
 	lintCfgs := lint.Configs{}
 	// Add configs for the enabled rules.
 	lintCfgs = append(lintCfgs, lint.Config{
@@ -114,9 +170,8 @@ func (a *App) Lint() (err error) {
 			return nil
 		},
 	}
-
 	// Resolve file absolute paths to relative ones.
-	protoFiles, err := protoparse.ResolveFilenames(a.config.Includes, a.config.Protos...)
+	protoFiles, err := protoparse.ResolveFilenames(a.config.Includes, absFiles...)
 	if err != nil {
 		return err
 	}

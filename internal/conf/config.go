@@ -37,7 +37,7 @@ type Config struct {
 	} `json:"lint,omitempty" yaml:"lint,omitempty"`
 }
 
-func NewConfig() (ret *Config, err error) {
+func NewConfig() (ret *Config) {
 	ret = &Config{}
 	return
 }
