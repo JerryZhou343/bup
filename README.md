@@ -1,5 +1,5 @@
 # prototool 
-proto 文件生成工具
+proto 辅助工具，根据配置文件的依赖描述，编译，格式化proto，还可以对proto进行拼写检查
 
 # 命令
 请查看help
@@ -23,4 +23,10 @@ Use "prototool [command] --help" for more information about a command.
 ```
 
 # 参考
+###  同类工具
+
 [uber prototool](https://github.com/uber/prototool)
+
+### 拼写检查手册
+
+[Google API Linter](https://linter.aip.dev/)

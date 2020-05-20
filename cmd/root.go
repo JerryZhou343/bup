@@ -1,12 +1,16 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/mfslog/prototool/internal/app"
 	"github.com/spf13/cobra"
 )
 
 var (
-	App *app.App
+	App   *app.App
+	major = 2
+	minor = 1
+	patch = 0
 )
 
 var (
@@ -25,5 +29,7 @@ func Run() {
 	RootCmd.AddCommand(fmtCmd)
 	RootCmd.AddCommand(lintCmd)
 	RootCmd.AddCommand(configCmd)
+
+	RootCmd.Version = fmt.Sprintf("v%d.%d.%d", major, minor, patch)
 	RootCmd.Execute()
 }
