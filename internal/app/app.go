@@ -44,28 +44,7 @@ func (a *App) Format() {
 		log.Fatal(err)
 	}
 
-	//文件参数
-	sourceFiles := map[string]struct{}{}
-	for _, itr := range flags.SrcFiles {
-		sourceFiles[itr] = struct{}{}
-	}
-	for _, itr := range a.config.Protos {
-		if _, ok := sourceFiles[itr]; ok {
-			absPath := filepath.Join(a.config.ImportPath, itr)
-			absPath = filepath.ToSlash(absPath)
-			absFiles = append(absFiles, absPath)
-		}
-	}
-	//目录参数
-	for _, itr := range a.config.Protos {
-		for _, dir := range flags.SrcDirectories {
-			if strings.Contains(itr, dir) {
-				absPath := filepath.Join(a.config.ImportPath, itr)
-				absPath = filepath.ToSlash(absPath)
-				absFiles = append(absFiles, absPath)
-			}
-		}
-	}
+	absFiles = a.spcecialFile()
 	if len(absFiles) > 0 {
 		a.formatter.Format(absFiles)
 	}
@@ -79,8 +58,11 @@ func (a *App) Gen() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	descSource, err := proto.DescriptorSourceFromProtoFiles(a.config.Includes, a.config.Protos...)
+	protos := a.spcecialFile()
+	if len(protos) == 0 {
+		protos = a.config.Protos
+	}
+	descSource, err := proto.DescriptorSourceFromProtoFiles(a.config.Includes, protos...)
 	if err != nil {
 		log.Fatalf("Failed to process proto source files. %v", err)
 	}
@@ -223,4 +205,34 @@ func (a *App) Config() {
 	err := a.config.Output()
 	log.Fatal(err)
 	return
+}
+
+func (a *App) spcecialFile() []string {
+	var (
+		absFiles []string
+	)
+	//文件参数
+	sourceFiles := map[string]struct{}{}
+	for _, itr := range flags.SrcFiles {
+		sourceFiles[itr] = struct{}{}
+	}
+	for _, itr := range a.config.Protos {
+		if _, ok := sourceFiles[itr]; ok {
+			absPath := filepath.Join(a.config.ImportPath, itr)
+			absPath = filepath.ToSlash(absPath)
+			absFiles = append(absFiles, absPath)
+		}
+	}
+	//目录参数
+	for _, itr := range a.config.Protos {
+		for _, dir := range flags.SrcDirectories {
+			if strings.Contains(itr, dir) {
+				absPath := filepath.Join(a.config.ImportPath, itr)
+				absPath = filepath.ToSlash(absPath)
+				absFiles = append(absFiles, absPath)
+			}
+		}
+	}
+
+	return absFiles
 }

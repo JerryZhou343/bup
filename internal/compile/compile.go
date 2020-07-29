@@ -34,10 +34,12 @@ func (c *Compiler) Compile(desc proto.DescriptorSource) (err error) {
 		//插件
 		arg := fmt.Sprintf("--%s_out=", itr.Name)
 		outputPath := os.ExpandEnv(itr.Output)
-		//err = os.RemoveAll(outputPath)
-		//if err != nil {
-		//	log.Println("remove path failed ", outputPath)
-		//}
+		/*
+			err = os.RemoveAll(outputPath)
+			if err != nil {
+				log.Println("remove path failed ", outputPath)
+			}
+		*/
 		err = os.MkdirAll(outputPath, os.ModePerm)
 		if err != nil {
 			log.Fatalf("MkdirAll failed [%v]", err)
