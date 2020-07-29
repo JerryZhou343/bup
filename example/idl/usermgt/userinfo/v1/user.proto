@@ -1,0 +1,8 @@
+syntax = "proto3";
+package usermgt.userinfo.v1;
+
+option go_package="usermgt/userinfo/v1;userinfo";
+
+message UserInfo {
+  string nickName = 1;
+}

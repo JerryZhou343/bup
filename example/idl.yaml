@@ -5,9 +5,10 @@ import_path: $PROTOCOL_PATH
 
 #当前项目依赖的proto文件
 protos:
-  - usermgt/passport/passport.proto
-  - usermgt/code.proto
-  - usermgt/user.proto
+  - usermgt/passport/v1/passport.proto
+  - usermgt/userinfo/v1/code.proto
+  - usermgt/userinfo/v1/user.proto
+  - usermgt/userinfo/v1/userinfo.proto
 #依赖导入目录
 includes:
   - $GOPATH/src/github.com/bilibili/kratos/third_party

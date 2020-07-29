@@ -1,0 +1,11 @@
+syntax = "proto3";
+package usermgt.userinfo.v1;
+
+
+option go_package="usermgt/userinfo/v1;userinfo";
+
+
+enum User_code {
+  OK     = 0;
+  fAILED = 1;
+}

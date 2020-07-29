@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package usermgt.passport.api.v1;
 
-import "usermgt/user.proto";
+option go_package="usermgt/passport/api/v1;api";
+
+
 
 //用户信息服务
 service UserinfoService {
@@ -11,7 +13,6 @@ service UserinfoService {
 
 message HelloReq {
   string            msg  = 1;
-  userbase.UserInfo info = 2;
 }
 
 message HelloRsp {

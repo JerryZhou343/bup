@@ -1,9 +1,9 @@
 syntax = "proto3";
-package usermgt.userinfo.srv.v1;
+package usermgt.userinfo.v1;
 
-import "usermgt/user.proto";
+import "usermgt/userinfo/v1/user.proto";
 
-option go_package="usermgt/userinfo";
+option go_package="usermgt/userinfo/v1;userinfo";
 
 
 service UserinfoService {
@@ -12,7 +12,7 @@ service UserinfoService {
 
 message HelloReq{
     string msg = 1;
-    userbase.UserInfo info = 2;
+    UserInfo info = 2;
 }
 
 message HelloRsp{
