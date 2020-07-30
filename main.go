@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/mfslog/prototool/cmd"
+	"github.com/JerryZhou343/prototool/cmd"
 )
 
 func main() {

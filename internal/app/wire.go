@@ -4,9 +4,9 @@ package app
 
 import (
 	"github.com/google/wire"
-	"github.com/mfslog/prototool/internal/compile"
-	"github.com/mfslog/prototool/internal/conf"
-	"github.com/mfslog/prototool/internal/format"
+	"github.com/JerryZhou343/prototool/internal/compile"
+	"github.com/JerryZhou343/prototool/internal/conf"
+	"github.com/JerryZhou343/prototool/internal/format"
 )
 
 func InitApp() (*App, error) {

@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/mfslog/prototool/internal/flags"
+	"github.com/JerryZhou343/prototool/internal/flags"
 	"github.com/spf13/cobra"
 )
 

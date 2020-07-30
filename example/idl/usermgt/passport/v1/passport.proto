@@ -4,7 +4,7 @@ package usermgt.passport.api.v1;
 
 option go_package="usermgt/passport/api/v1;api";
 
-
+import "usermgt/userinfo/v1/user.proto";
 
 //用户信息服务
 service UserinfoService {
@@ -13,6 +13,7 @@ service UserinfoService {
 
 message HelloReq {
   string            msg  = 1;
+  usermgt.userinfo.v1.UserInfo info = 2;
 }
 
 message HelloRsp {

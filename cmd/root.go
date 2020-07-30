@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/mfslog/prototool/internal/app"
+	"github.com/JerryZhou343/prototool/internal/app"
 	"github.com/spf13/cobra"
 )
 

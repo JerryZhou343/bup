@@ -2,9 +2,9 @@ package compile
 
 import (
 	"fmt"
-	"github.com/mfslog/prototool/internal/conf"
-	"github.com/mfslog/prototool/internal/proto"
-	"github.com/mfslog/prototool/internal/wkt"
+	"github.com/JerryZhou343/prototool/internal/conf"
+	"github.com/JerryZhou343/prototool/internal/proto"
+	"github.com/JerryZhou343/prototool/internal/wkt"
 	"log"
 	"os"
 	"os/exec"
