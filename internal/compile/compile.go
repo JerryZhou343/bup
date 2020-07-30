@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
@@ -111,7 +112,7 @@ func (e *Compiler) generateCmd(desc proto.DescriptorSource, typ string) []*metaC
 			args = append(args, "-I"+itr)
 		}
 		cmd := metaCmd{
-			file:           name,
+			file:           filepath.Join(e.config.ImportPath, name),
 			args:           args,
 			extraModifiers: M,
 		}

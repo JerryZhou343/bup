@@ -44,7 +44,7 @@ func (a *App) Format() {
 		log.Fatal(err)
 	}
 
-	absFiles = a.spcecialFile()
+	absFiles = a.specialFile()
 	if len(absFiles) > 0 {
 		a.formatter.Format(absFiles)
 	}
@@ -58,7 +58,7 @@ func (a *App) Gen() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	protos := a.spcecialFile()
+	protos := a.specialFile()
 	if len(protos) == 0 {
 		protos = a.config.Protos
 	}
@@ -84,28 +84,7 @@ func (a *App) Lint() (err error) {
 		log.Fatal(err)
 	}
 
-	//文件参数
-	sourceFiles := map[string]struct{}{}
-	for _, itr := range flags.SrcFiles {
-		sourceFiles[itr] = struct{}{}
-	}
-	for _, itr := range a.config.Protos {
-		if _, ok := sourceFiles[itr]; ok {
-			absPath := filepath.Join(a.config.ImportPath, itr)
-			absPath = filepath.ToSlash(absPath)
-			absFiles = append(absFiles, absPath)
-		}
-	}
-	//目录参数
-	for _, itr := range a.config.Protos {
-		for _, dir := range flags.SrcDirectories {
-			if strings.Contains(itr, dir) {
-				absPath := filepath.Join(a.config.ImportPath, itr)
-				absPath = filepath.ToSlash(absPath)
-				absFiles = append(absFiles, absPath)
-			}
-		}
-	}
+	absFiles = a.specialFile()
 
 	if len(absFiles) == 0 {
 		return
@@ -207,7 +186,7 @@ func (a *App) Config() {
 	return
 }
 
-func (a *App) spcecialFile() []string {
+func (a *App) specialFile() []string {
 	var (
 		absFiles []string
 	)
