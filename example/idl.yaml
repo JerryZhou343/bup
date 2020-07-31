@@ -29,9 +29,9 @@ lint:
 generate:
     go_options:
       extra_modifiers:
-        usermgt/userinfo/v1/code.proto:github.com/JerryZhou343/usermgt/userinfo
-        usermgt/userinfo/v1/user.proto:github.com/JerryZhou343/usermgt/userinfo
-        usermgt/userinfo/v1/userinfo.proto:github.com/JerryZhou343/usermgt/userinfo
+        usermgt/userinfo/v1/code.proto: github.com/JerryZhou343/usermgt/userinfo
+        usermgt/userinfo/v1/user.proto: github.com/JerryZhou343/usermgt/userinfo
+        usermgt/userinfo/v1/userinfo.proto: github.com/JerryZhou343/usermgt/userinfo
     plugins:
       - name: gofast
         flags: plugins=grpc

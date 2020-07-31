@@ -6,6 +6,7 @@ package userinfo
 import (
 	context "context"
 	fmt "fmt"
+	userinfo "github.com/JerryZhou343/usermgt/userinfo"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -27,11 +28,11 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type HelloReq struct {
-	Msg                  string    `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
-	Info                 *UserInfo `protobuf:"bytes,2,opt,name=info,proto3" json:"info,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+	Msg                  string             `protobuf:"bytes,1,opt,name=msg,proto3" json:"msg,omitempty"`
+	Info                 *userinfo.UserInfo `protobuf:"bytes,2,opt,name=info,proto3" json:"info,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
 }
 
 func (m *HelloReq) Reset()         { *m = HelloReq{} }
@@ -74,7 +75,7 @@ func (m *HelloReq) GetMsg() string {
 	return ""
 }
 
-func (m *HelloReq) GetInfo() *UserInfo {
+func (m *HelloReq) GetInfo() *userinfo.UserInfo {
 	if m != nil {
 		return m.Info
 	}
@@ -455,7 +456,7 @@ func (m *HelloReq) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			if m.Info == nil {
-				m.Info = &UserInfo{}
+				m.Info = &userinfo.UserInfo{}
 			}
 			if err := m.Info.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
