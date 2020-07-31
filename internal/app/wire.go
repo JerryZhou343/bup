@@ -3,10 +3,10 @@
 package app
 
 import (
-	"github.com/google/wire"
 	"github.com/JerryZhou343/prototool/internal/compile"
 	"github.com/JerryZhou343/prototool/internal/conf"
 	"github.com/JerryZhou343/prototool/internal/format"
+	"github.com/google/wire"
 )
 
 func InitApp() (*App, error) {

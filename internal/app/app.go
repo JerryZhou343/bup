@@ -2,15 +2,15 @@ package app
 
 import (
 	"fmt"
-	"github.com/googleapis/api-linter/lint"
-	"github.com/googleapis/api-linter/rules"
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/protoparse"
 	"github.com/JerryZhou343/prototool/internal/compile"
 	"github.com/JerryZhou343/prototool/internal/conf"
 	"github.com/JerryZhou343/prototool/internal/flags"
 	"github.com/JerryZhou343/prototool/internal/format"
 	"github.com/JerryZhou343/prototool/internal/proto"
+	"github.com/googleapis/api-linter/lint"
+	"github.com/googleapis/api-linter/rules"
+	"github.com/jhump/protoreflect/desc"
+	"github.com/jhump/protoreflect/desc/protoparse"
 	"github.com/pkg/errors"
 	"log"
 	"os"
@@ -52,22 +52,25 @@ func (a *App) Format() {
 
 func (a *App) Gen() {
 	var (
-		err error
+		err             error
+		deleteDirectory bool
 	)
 	err = a.config.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
 	protos := a.specialFile()
+	//不是编译指定文件时，对编译output 目录进行删除后重建
 	if len(protos) == 0 {
 		protos = a.config.Protos
+		deleteDirectory = true
 	}
 	descSource, err := proto.DescriptorSourceFromProtoFiles(a.config.Includes, protos...)
 	if err != nil {
 		log.Fatalf("Failed to process proto source files. %v", err)
 	}
 
-	err = a.compiler.Compile(descSource)
+	err = a.compiler.Compile(descSource, deleteDirectory)
 	if err != nil {
 		log.Fatalf("compile error %v", err)
 	}
