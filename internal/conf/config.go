@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 type Plugin struct {
@@ -74,11 +75,12 @@ func (ret *Config) Load() (err error) {
 	absPath := []string{}
 	for _, itr := range ret.Includes {
 		tmp := os.ExpandEnv(itr)
+		tmp = filepath.ToSlash(tmp)
 		absPath = append(absPath, tmp)
 	}
 
 	ret.Includes = absPath
-	ret.ImportPath = os.ExpandEnv(ret.ImportPath)
+	ret.ImportPath = filepath.FromSlash(os.ExpandEnv(ret.ImportPath))
 	ret.Includes = append(ret.Includes, ret.ImportPath)
 	for _, itr := range ret.Includes {
 		log.Println("include path:", itr)
