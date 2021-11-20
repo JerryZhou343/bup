@@ -1,12 +1,13 @@
 package conf
 
 import (
-	"github.com/pkg/errors"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/pkg/errors"
+	"gopkg.in/yaml.v2"
 )
 
 type Plugin struct {
@@ -43,11 +44,13 @@ func NewConfig() (ret *Config) {
 	return
 }
 
+var configFileName = "genproto.yaml"
+
 func (c *Config) Output() (err error) {
 	var (
 		file *os.File
 	)
-	file, err = os.Create("idl.yaml")
+	file, err = os.Create(configFileName)
 	if err != nil {
 		err = errors.WithMessagef(err, "create idl.yaml failed")
 		return
@@ -61,7 +64,7 @@ func (c *Config) Output() (err error) {
 }
 
 func (ret *Config) Load() (err error) {
-	f, err := ioutil.ReadFile("idl.yaml")
+	f, err := ioutil.ReadFile(configFileName)
 	if err != nil {
 		return err
 	}
