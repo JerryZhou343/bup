@@ -11,10 +11,9 @@ import (
 )
 
 type Plugin struct {
-	Name   string `yaml:"name"`
-	Output string `yaml:"output"`
-	Flags  string `yaml:"flags"`
-	Type   string `yaml:"type"`
+	Name  string `yaml:"name"`
+	Flags string `yaml:"flags"`
+	Type  string `yaml:"type"`
 }
 
 type GoOptions struct {
@@ -24,6 +23,7 @@ type GoOptions struct {
 type Generate struct {
 	GoOptions GoOptions `yaml:"go_options"`
 	Plugins   []Plugin  `yaml:"plugins"`
+	Output    string    `yaml:"output"`
 }
 
 type Config struct {

@@ -2,14 +2,15 @@ package compile
 
 import (
 	"fmt"
-	"github.com/JerryZhou343/prototool/internal/conf"
-	"github.com/JerryZhou343/prototool/internal/proto"
-	"github.com/JerryZhou343/prototool/internal/wkt"
 	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/JerryZhou343/prototool/internal/conf"
+	"github.com/JerryZhou343/prototool/internal/proto"
+	"github.com/JerryZhou343/prototool/internal/wkt"
 )
 
 type Compiler struct {
@@ -30,23 +31,26 @@ func NewCompiler(cfg *conf.Config) *Compiler {
 
 func (c *Compiler) Compile(desc proto.DescriptorSource, deleteDirectory bool) (err error) {
 
+	outputPath := os.ExpandEnv(c.config.Generate.Output)
+
+	if deleteDirectory {
+		err = os.RemoveAll(outputPath)
+		if err != nil {
+			log.Fatalf("remove path failed ", outputPath)
+		}
+	}
+
+	err = os.MkdirAll(outputPath, os.ModePerm)
+	if err != nil {
+		log.Fatalf("MkdirAll failed [%v]", err)
+	}
+
+	log.Println("out path ", outputPath)
 	for _, itr := range c.config.Generate.Plugins {
 		metaCmds := c.generateCmd(desc, itr.Type)
 		//插件
 		arg := fmt.Sprintf("--%s_out=", itr.Name)
-		outputPath := os.ExpandEnv(itr.Output)
-		if deleteDirectory {
-			err = os.RemoveAll(outputPath)
-			if err != nil {
-				log.Fatalf("remove path failed ", outputPath)
-			}
-		}
 
-		err = os.MkdirAll(outputPath, os.ModePerm)
-		if err != nil {
-			log.Fatalf("MkdirAll failed [%v]", err)
-		}
-		log.Println("out path ", outputPath)
 		//参数
 		arg = arg + itr.Flags
 		var optArg string
