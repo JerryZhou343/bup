@@ -24,9 +24,11 @@ type metaCmd struct {
 }
 
 func NewCompiler(cfg *conf.Config) *Compiler {
-	return &Compiler{
+	ret := &Compiler{
 		config: cfg,
 	}
+
+	return ret
 }
 
 func (c *Compiler) Compile(desc proto.DescriptorSource, deleteDirectory bool) (err error) {
@@ -36,7 +38,7 @@ func (c *Compiler) Compile(desc proto.DescriptorSource, deleteDirectory bool) (e
 	if deleteDirectory {
 		err = os.RemoveAll(outputPath)
 		if err != nil {
-			log.Fatalf("remove path failed ", outputPath)
+			log.Fatalf("remove path failed. [%s] ", outputPath)
 		}
 	}
 
@@ -86,6 +88,11 @@ func (e *Compiler) generateCmd(desc proto.DescriptorSource, typ string) []*metaC
 		if _, ok := wkt.Filenames[name]; ok {
 			continue
 		}
+
+		if _, ok := e.config.IngoreMap[name]; ok {
+			continue
+		}
+
 		log.Println("compile file ", name)
 		//生成命令
 		fs := fileDesc.GetDependencies()

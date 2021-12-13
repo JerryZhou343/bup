@@ -27,10 +27,12 @@ type Generate struct {
 }
 
 type Config struct {
-	ImportPath string   `yaml:"import_path"`
-	Protos     []string `yaml:"protos"`
-	Includes   []string `yaml:"includes"`
-	Generate   Generate `yaml:"generate"`
+	ImportPath string              `yaml:"import_path"`
+	Protos     []string            `yaml:"protos"`
+	Ignore     []string            `yaml:"ignore"`
+	IngoreMap  map[string]struct{} `yaml:"-"`
+	Includes   []string            `yaml:"includes"`
+	Generate   Generate            `yaml:"generate"`
 	Lint       struct {
 		Rules struct {
 			Enable  []string `json:"enable,omitempty" yaml:"enable,omitempty"`
@@ -40,7 +42,9 @@ type Config struct {
 }
 
 func NewConfig() (ret *Config) {
-	ret = &Config{}
+	ret = &Config{
+		IngoreMap: make(map[string]struct{}),
+	}
 	return
 }
 
@@ -80,6 +84,10 @@ func (ret *Config) Load() (err error) {
 		tmp := os.ExpandEnv(itr)
 		tmp = filepath.ToSlash(tmp)
 		absPath = append(absPath, tmp)
+	}
+
+	for _, itr := range ret.Ignore {
+		ret.IngoreMap[itr] = struct{}{}
 	}
 
 	ret.Includes = absPath
