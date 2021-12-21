@@ -28,6 +28,7 @@ type Generate struct {
 
 type Config struct {
 	ImportPath string              `yaml:"import_path"`
+	GoModule   string              `yaml:"go_module"`
 	Protos     []string            `yaml:"protos"`
 	Ignore     []string            `yaml:"ignore"`
 	IngoreMap  map[string]struct{} `yaml:"-"`
