@@ -2,11 +2,11 @@ package app
 
 import (
 	"fmt"
-	"github.com/JerryZhou343/prototool/internal/compile"
-	"github.com/JerryZhou343/prototool/internal/conf"
-	"github.com/JerryZhou343/prototool/internal/flags"
-	"github.com/JerryZhou343/prototool/internal/format"
-	"github.com/JerryZhou343/prototool/internal/proto"
+	"github.com/JerryZhou343/bup/internal/compile"
+	"github.com/JerryZhou343/bup/internal/conf"
+	"github.com/JerryZhou343/bup/internal/flags"
+	"github.com/JerryZhou343/bup/internal/format"
+	"github.com/JerryZhou343/bup/internal/proto"
 	"github.com/googleapis/api-linter/lint"
 	"github.com/googleapis/api-linter/rules"
 	"github.com/jhump/protoreflect/desc"

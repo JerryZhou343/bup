@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"errors"
-	"github.com/JerryZhou343/prototool/internal/flags"
+	"github.com/JerryZhou343/bup/internal/flags"
 	"github.com/spf13/cobra"
 )
 

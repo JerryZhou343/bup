@@ -1,13 +1,13 @@
 package cmd
 
 import (
-	"github.com/JerryZhou343/prototool/internal/flags"
+	"github.com/JerryZhou343/bup/internal/flags"
 	"github.com/spf13/cobra"
 )
 
 var (
 	generateCmd = &cobra.Command{
-		Use:   "generate",
+		Use:   "gen",
 		Short: "编译proto",
 		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {

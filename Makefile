@@ -1,6 +1,6 @@
 .PHONY: all clean idl uidl
 
-OUTPUT=prototool
+OUTPUT=bup
 
 all: clean
 	go build -o ./example/${OUTPUT} main.go

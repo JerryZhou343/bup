@@ -1,6 +1,6 @@
-module github.com/JerryZhou343/prototool
+module github.com/JerryZhou343/bup
 
-go 1.17
+go 1.21.1
 
 require (
 	github.com/golang/protobuf v1.5.2
@@ -12,6 +12,7 @@ require (
 	github.com/spf13/cobra v1.2.1
 	google.golang.org/grpc v1.42.0
 	gopkg.in/yaml.v2 v2.4.0
+	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 )
 
 require (

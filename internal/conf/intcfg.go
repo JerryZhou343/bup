@@ -34,5 +34,6 @@ generate:
 		type: go   #well known type import choice
         flags: plugins=grpc #parameter
         output: ./genproto # output path
+	output: xxx
 `
 )

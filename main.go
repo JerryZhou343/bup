@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/JerryZhou343/prototool/cmd"
+	"github.com/JerryZhou343/bup/cmd"
 )
 
 func main() {

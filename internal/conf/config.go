@@ -1,19 +1,20 @@
 package conf
 
 import (
+	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 
 	"github.com/pkg/errors"
-	"gopkg.in/yaml.v2"
 )
 
 type Plugin struct {
-	Name  string `yaml:"name"`
-	Flags string `yaml:"flags"`
-	Type  string `yaml:"type"`
+	Name   string `yaml:"name"`
+	Flags  string `yaml:"flags"`
+	Type   string `yaml:"type"`
+	Output string `yaml:"output"`
 }
 
 type GoOptions struct {
