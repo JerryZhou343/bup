@@ -50,7 +50,7 @@ func NewConfig() (ret *Config) {
 	return
 }
 
-var configFileName = "genproto.yaml"
+var configFileName = "bup.yaml"
 
 func (c *Config) Output() (err error) {
 	var (
@@ -58,44 +58,44 @@ func (c *Config) Output() (err error) {
 	)
 	file, err = os.Create(configFileName)
 	if err != nil {
-		err = errors.WithMessagef(err, "create idl.yaml failed")
+		err = errors.WithMessagef(err, "create bup.yaml failed")
 		return
 	}
 
 	_, err = file.WriteString(tmpl)
 	if err != nil {
-		err = errors.WithMessagef(err, "write idl.yaml failed")
+		err = errors.WithMessagef(err, "write bup.yaml failed")
 	}
 	return
 }
 
-func (ret *Config) Load() (err error) {
+func (c *Config) Load() (err error) {
 	f, err := ioutil.ReadFile(configFileName)
 	if err != nil {
 		return err
 	}
 
-	err = yaml.Unmarshal(f, ret)
+	err = yaml.Unmarshal(f, c)
 	if err != nil {
 		return err
 	}
 
 	//支持环境变量
 	absPath := []string{}
-	for _, itr := range ret.Includes {
+	for _, itr := range c.Includes {
 		tmp := os.ExpandEnv(itr)
 		tmp = filepath.ToSlash(tmp)
 		absPath = append(absPath, tmp)
 	}
 
-	for _, itr := range ret.Ignore {
-		ret.IngoreMap[itr] = struct{}{}
+	for _, itr := range c.Ignore {
+		c.IngoreMap[itr] = struct{}{}
 	}
 
-	ret.Includes = absPath
-	ret.ImportPath = filepath.FromSlash(os.ExpandEnv(ret.ImportPath))
-	ret.Includes = append(ret.Includes, ret.ImportPath)
-	for _, itr := range ret.Includes {
+	c.Includes = absPath
+	c.ImportPath = filepath.FromSlash(os.ExpandEnv(c.ImportPath))
+	c.Includes = append(c.Includes, c.ImportPath)
+	for _, itr := range c.Includes {
 		log.Println("include path:", itr)
 	}
 	return nil
