@@ -15,16 +15,6 @@ protos:
 includes:
   - $GOPATH/src/github.com/bilibili/kratos/third_party
 
-
-####################lint配置####################
-lint:
-# 检查规则
-  rules:
-    enable:
-
-    disable:
-
-
 ####################编译配置####################
 generate:
     go_options:
