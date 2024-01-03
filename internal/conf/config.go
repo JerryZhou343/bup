@@ -19,6 +19,7 @@ type Plugin struct {
 
 type GoOptions struct {
 	ExtraModifiers map[string]string `yaml:"extra_modifiers"`
+	Modifier       string            `yaml:"modifier"`
 }
 
 type Generate struct {
@@ -80,23 +81,32 @@ func (c *Config) Load() (err error) {
 		return err
 	}
 
-	//支持环境变量
+	// include path
 	absPath := []string{}
 	for _, itr := range c.Includes {
 		tmp := os.ExpandEnv(itr)
 		tmp = filepath.ToSlash(tmp)
 		absPath = append(absPath, tmp)
 	}
+	c.Includes = absPath
 
+	//ignore file
 	for _, itr := range c.Ignore {
 		c.IngoreMap[itr] = struct{}{}
 	}
 
-	c.Includes = absPath
+	//import path
 	c.ImportPath = filepath.FromSlash(os.ExpandEnv(c.ImportPath))
 	c.Includes = append(c.Includes, c.ImportPath)
 	for _, itr := range c.Includes {
 		log.Println("include path:", itr)
 	}
+
+	//output path
+	for _, itr := range c.Generate.Plugins {
+		itr.Output = os.ExpandEnv(itr.Output)
+	}
+	c.Generate.Output = os.ExpandEnv(c.Generate.Output)
+
 	return nil
 }

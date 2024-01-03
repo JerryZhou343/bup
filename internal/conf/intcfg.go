@@ -21,9 +21,10 @@ generate:
       extra_modifiers:
     plugins:
       - name: gofast #plugin choice
-		type: go   #well known type import choice
+		type: go  #well known type import choice
         flags: plugins=grpc #parameter
         output: ./genproto # output path
 	output: xxx
+	modifiers: genproto
 `
 )

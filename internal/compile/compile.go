@@ -141,7 +141,7 @@ func (c *Compiler) generateCmd(descriptor proto.DescriptorSource, typ string) []
 				//正确生成描述
 				if dfd, okd := prjFileDesc[dependName]; okd {
 					//生成依赖包名
-					tmp := path.Join(c.config.GoModule, c.config.Generate.Output,
+					tmp := path.Join(c.config.GoModule, c.config.Generate.GoOptions.Modifier,
 						*dfd.GetFileOptions().GoPackage)
 					ms = append(ms, "M"+dependName+"="+tmp)
 				}

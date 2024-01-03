@@ -16,6 +16,7 @@ includes:
 ####################编译配置####################
 generate:
     go_options:
+      modifiers: genproto
       extra_modifiers:
         usermgt/userinfo/v1/code.proto: github.com/JerryZhou343/usermgt/userinfo
         usermgt/userinfo/v1/user.proto: github.com/JerryZhou343/usermgt/userinfo
