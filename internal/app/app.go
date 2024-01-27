@@ -52,8 +52,7 @@ func (a *App) Format() {
 
 func (a *App) Gen() {
 	var (
-		err             error
-		deleteDirectory bool
+		err error
 	)
 	err = a.config.Load()
 	if err != nil {
@@ -63,14 +62,13 @@ func (a *App) Gen() {
 	//不是编译指定文件时，对编译output 目录进行删除后重建
 	if len(protos) == 0 {
 		protos = a.config.Protos
-		deleteDirectory = true
 	}
 	descSource, err := proto.DescriptorSourceFromProtoFiles(a.config.Includes, protos...)
 	if err != nil {
 		log.Fatalf("Failed to process proto source files. %v", err)
 	}
 
-	err = a.compiler.Compile(descSource, deleteDirectory)
+	err = a.compiler.Compile(descSource)
 	if err != nil {
 		log.Fatalf("compile error %v", err)
 	}

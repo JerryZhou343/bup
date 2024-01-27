@@ -33,12 +33,12 @@ func NewCompiler(cfg *conf.Config) *Compiler {
 	return ret
 }
 
-func (c *Compiler) Compile(desc proto.DescriptorSource, deleteDirectory bool) (err error) {
+func (c *Compiler) Compile(desc proto.DescriptorSource) (err error) {
 	var (
 		defaultOutPath string
 	)
 	//default directory
-	if defaultOutPath, err = c.preparePath(c.config.Generate.Output, deleteDirectory); err != nil {
+	if defaultOutPath, err = c.preparePath(c.config.Generate.Output); err != nil {
 		return err
 	}
 
@@ -46,7 +46,7 @@ func (c *Compiler) Compile(desc proto.DescriptorSource, deleteDirectory bool) (e
 		var (
 			outputPath string
 		)
-		if outputPath, err = c.preparePath(itr.Output, deleteDirectory); err != nil {
+		if outputPath, err = c.preparePath(itr.Output); err != nil {
 			return err
 		}
 		if outputPath == "" {
@@ -166,20 +166,13 @@ func (c *Compiler) generateCmd(descriptor proto.DescriptorSource, typ string) []
 	return ret
 }
 
-func (c *Compiler) preparePath(path string, deleteDirectory bool) (absPath string, err error) {
+func (c *Compiler) preparePath(path string) (absPath string, err error) {
 
 	if path == "" {
 		return "", nil
 	}
 
 	outputPath := os.ExpandEnv(path)
-	if deleteDirectory {
-		err = os.RemoveAll(outputPath)
-		if err != nil {
-			log.Fatalf("remove path failed. [%s] ", outputPath)
-			return "", err
-		}
-	}
 
 	err = os.MkdirAll(outputPath, os.ModePerm)
 	if err != nil {
